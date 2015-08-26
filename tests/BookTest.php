@@ -33,7 +33,6 @@
 
             //Assert
             $this->assertEquals($title, $result);
-
         }
 
         function testSetTitle()
@@ -48,7 +47,6 @@
 
             //Assert
             $this->assertEquals("Cannary Row", $result);
-
         }
 
         function testGetId()
@@ -63,7 +61,6 @@
 
             //Assert
             $this->assertEquals(1, $result);
-
         }
 
         function testSave()
@@ -79,7 +76,6 @@
             //Assert
             $result = Book::getAll();
             $this->assertEquals($test_book, $result[0]);
-
         }
 
         function testGetAll()
@@ -122,8 +118,6 @@
             //Assert
             $result = Book::getAll();
             $this->assertEquals([], $result);
-
-
         }
 
         function testUpdate()
@@ -142,17 +136,24 @@
             $this->assertEquals("Harry Potter", $test_book->getTitle());
         }
 
-        // function testGetAuthors()
-        // {
-        //
-        // }
-        //
-        // function testDelete()
-        // {
-        //
-        // }
+        function testDeleteOne()
+        {
+            //Arrange
+            $title = "Grapes of Wrath";
+            $id = 1;
+            $test_book = new Book($title, $id);
+            $test_book->save();
 
+            $title2 = "Cannery Row";
+            $id2 = 2;
+            $test_book2 = new Book($title2, $id2);
+            $test_book2->save();
 
+            //Act
+            $test_book->deleteOne();
 
+            //Assert
+            $this->assertEquals([$test_book2], Book::getAll());
+        }
     }
  ?>

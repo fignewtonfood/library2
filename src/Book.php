@@ -37,6 +37,11 @@ class Book
         $this->setTitle($new_title);
     }
 
+    function deleteOne()
+    {
+        $GLOBALS['DB']->exec("DELETE FROM t_books WHERE id = {$this->getId()};");
+    }
+
     static function getAll()
     {
         $returned_books = $GLOBALS['DB']->query("SELECT * FROM t_books;");
