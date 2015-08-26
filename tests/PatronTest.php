@@ -56,14 +56,14 @@
             //Arrange
             $patron_name = "Sally";
             $phone_number = "1234567890";
-            $id = 1;
-            $test_patron = new Patron($patron_name, $phone_number, $id);
+            $test_patron = new Patron($patron_name, $phone_number);
+            $test_patron->save();
 
             //Act
             $result = $test_patron->getId();
 
             //Assert
-            $this->assertEquals(1, $result);
+            $this->assertEquals(true, is_numeric($result));
         }
 
         function testSave()
@@ -71,9 +71,7 @@
             //Arrange
             $patron_name = "Sally";
             $phone_number = "1234567890";
-            $id = 1;
-            $test_patron = new Patron($patron_name, $phone_number, $id);
-            // var_dump($test_patron);
+            $test_patron = new Patron($patron_name, $phone_number);
 
             //Act
             $test_patron->save();
@@ -100,7 +98,6 @@
 
             //Act
             $result = Patron::getAll();
-            var_dump($result);
 
             //Assert
             $this->assertEquals([$test_patron, $test_patron2], $result);
@@ -130,7 +127,7 @@
             $this->assertEquals([], $result);
         }
 
-        function testUpdate($column_to_update, $new_patron_information)
+        function testUpdate()
         {
             //Arrange
             $patron_name = "Sally";
@@ -142,10 +139,11 @@
             $new_patron_information = "Harry Potter";
 
             //Act
-            $test_patron->update($new_patron_name);
+            $test_patron->update($column_to_update, $new_patron_information);
+            $result = Patron::getAll();
 
             //Assert
-            $this->assertEquals("Harry Potter", $test_patron->getPatronName());
+            $this->assertEquals("Harry Potter", $result[0]->getPatronName());
         }
 
         function testDeleteOne()

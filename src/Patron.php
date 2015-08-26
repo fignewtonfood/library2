@@ -61,7 +61,7 @@ class Patron
             $patron_name = $patron['patron_name'];
             $phone_number = $patron['phone_number'];
             $id = $patron['id'];
-            $new_patron = new Patron($patron_name, $id);
+            $new_patron = new Patron($patron_name, $phone_number, $id);
             array_push($patrons, $new_patron);
         }
         return $patrons;
