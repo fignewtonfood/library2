@@ -4,9 +4,9 @@
     * @backupStaticAttributes disabled
     */
 
+    require_once 'src/Book.php';
     require_once 'src/Author.php';
-    //require_once 'src/Author.php';
-    //require_once 'src/Patron.php';
+    require_once 'src/Patron.php';
 
     $server = 'mysql:host=localhost;dbname=library_catalog_test';
     $username = 'root';
@@ -17,9 +17,9 @@
     {
         protected function tearDown()
         {
+            Book::deleteAll();
             Author::deleteAll();
-            // Author::deleteAll();
-            // Patron::deleteAll();
+            Patron::deleteAll();
         }
 
         function testGetAuthorName()
