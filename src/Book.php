@@ -42,6 +42,35 @@ class Book
         $GLOBALS['DB']->exec("DELETE FROM t_books WHERE id = {$this->getId()};");
     }
 
+    ///////////
+    ///////////////All tests pass up to this point. Recieving errors for tests pertaining to functions commented-out below.
+    //////////
+
+
+    // function addAuthor($author)
+    // {
+    //     $GLOBALS['DB']->exec("INSERT INTO authors_books (author_id, book_id) VALUES ({$author->getId()}, {$this->getId()};)");
+    // }
+    //
+    // function getAuthor()
+    // {
+    //     $query = $GLOBALS['DB']->query("SELECT author_id FROM authors_books WHERE book_id = {$this->getId()};");
+    //     $author_ids = $query->fetchAll(PDO::FETCH_ASSOC);
+    //
+    //     $authors = array();
+    //     foreach ($author_ids as $id) {
+    //         $author_id = $id['author_id'];
+    //         $result = $GLOBALS['DB']->query("SELECT * FROM t_authors WHERE id = {$author_id};");
+    //         $returned_author = $result->fetchAll(PDO::FETCH_ASSOC);
+    //
+    //         $author_name = $returned_author[0]['author_name'];
+    //         $id = $returned_author[0]['id'];
+    //         $new_author = new Author($author_name, $id);
+    //         array_push($authors, $new_author);
+    //     }
+    //     return $authors;
+    // }
+
     static function getAll()
     {
         $returned_books = $GLOBALS['DB']->query("SELECT * FROM t_books;");

@@ -140,13 +140,11 @@
         {
             //Arrange
             $title = "Grapes of Wrath";
-            $id = 1;
-            $test_book = new Book($title, $id);
+            $test_book = new Book($title);
             $test_book->save();
 
             $title2 = "Cannery Row";
-            $id2 = 2;
-            $test_book2 = new Book($title2, $id2);
+            $test_book2 = new Book($title2);
             $test_book2->save();
 
             //Act
@@ -155,5 +153,57 @@
             //Assert
             $this->assertEquals([$test_book2], Book::getAll());
         }
+
+
+///////////
+///////////////All tests pass up to this point. Recieving errors for tests below.
+//////////
+        // function testAddAuthor()
+        // {
+        //     //Arrange
+        //     $title = "Grapes of Wrath";
+        //     $test_book = new Book($title);
+        //     $test_book->save();
+        //
+        //     $title2 = "Cannery Row";
+        //     $test_book2 = new Book($title2);
+        //     $test_book2->save();
+        //
+        //     $author_name = "John Steinbeck";
+        //     $test_author = new Author($author_name);
+        //     $test_author->save();
+        //
+        //     //Act
+        //     $test_book->addAuthor($test_author);
+        //
+        //     //Assert
+        //     $this->assertEquals($test_book->getAuthor(), [$test_author]);
+        //
+        // }
+        //
+        // function testGetAuthor()
+        // {
+        //     //Arrange
+        //     $title = "Grapes of Wrath";
+        //     $test_book = new Book($title);
+        //     $test_book->save();
+        //
+        //     $author_name = "John Steinbeck";
+        //     $test_author = new Author($author_name);
+        //     $test_author->save();
+        //
+        //     $author_name2 = "J.K. Rowling";
+        //     $test_author2 = new Author($author_name2);
+        //     $test_author2->save();
+        //
+        //     //Act
+        //     $test_book->addAuthor($test_author);
+        //     $test_book->addAuthor($test_author2);
+        //
+        //     $result = $test_book->getAuthor();
+        //
+        //     //Assert
+        //     $this->assertEquals([$test_author, $test_author2], $result);
+        // }
     }
  ?>

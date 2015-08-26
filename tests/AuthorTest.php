@@ -155,5 +155,53 @@
             //Assert
             $this->assertEquals([$test_author2], Author::getAll());
         }
+
+        ///////////
+        ///////////////All tests pass up to this point. Recieving errors for tests below.
+        //////////
+        // function testAddBook()
+        // {
+        //     //Arrange
+        //     $author_name = "John Steinbeck";
+        //     $test_author = new Author($author_name);
+        //     $test_author->save();
+        //
+        //     $title = "Grapes of Wrath";
+        //     $test_book = new Book($title);
+        //     $test_book->save();
+        //
+        //     //Act
+        //     $test_author->addBook($test_book);
+        //
+        //     //Assert
+        //     $this->assertEquals($test_author->getBook(), [$test_book]);
+        //
+        // }
+        //
+        // function testGetBook()
+        // {
+        //     //Arrange
+        //     $author_name = "John Steinbeck";
+        //     $test_author = new Author($author_name);
+        //     $test_author->save();
+        //
+        //     $title = "Grapes of Wrath";
+        //     $test_book = new Book($title);
+        //     $test_book->save();
+        //
+        //     $title2 = "Cannery Row";
+        //     $test_book2 = new Book($title2);
+        //     $test_book2->save();
+        //
+        //
+        //     //Act
+        //     $test_author->addBook($test_book);
+        //     $test_author->addBook($test_book2);
+        //
+        //     $result = $test_author->getBook();
+        //
+        //     //Assert
+        //     $this->assertEquals([$test_book, $test_book2], $result);
+        // }
     }
  ?>

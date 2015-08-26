@@ -34,8 +34,11 @@
         $title = $_POST['title'];
         $book = new Book($title);
         $book -> save();
-        //this is where author link should go...?
-        return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll()));
+        //...and the authors name. We left off here to add functions and tests to make this part work. We wanted to a book and an author with a single button.
+        // $author_name = $_POST['author_name'];
+        // $author = new Author($author_name);
+        // $author-> save();
+        return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll(), 'authors' => Author::getAll()));
     });
 
     //allows user to delete all books
