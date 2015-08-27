@@ -54,23 +54,43 @@ class Book
 
     function getAuthor()
     {
-        $query = $GLOBALS['DB']->query("SELECT author_id FROM authors_books WHERE book_id = {$this->getId()};");
-        $author_ids = $query->fetchAll(PDO::FETCH_ASSOC);
-        // var_dump($author_ids);
-
+        $returned_authors = $GLOBALS['DB']->query("SELECT t_authors.* FROM t_books
+            JOIN authors_books ON (t_books.id = authors_books.book_id)
+            JOIN t_authors ON (authors_books.author_id = t_authors.id)
+            WHERE t_books.id = {$this->getId()};");
         $authors = array();
-        foreach ($author_ids as $id) {
-            $author_id = $id['author_id'];
-            $result = $GLOBALS['DB']->query("SELECT * FROM t_authors WHERE id = {$author_id};");
-            $returned_author = $result->fetchAll(PDO::FETCH_ASSOC);
-            $author_first = $returned_author[0]['author_first'];
-            $author_last = $returned_author[0]['author_last'];
-            $id = $returned_author[0]['id'];
+        foreach($returned_authors as $author) {
+            $author_first = $author['author_first'];
+            $author_last = $author['author_last'];
+            $id = $author['id'];
             $new_author = new Author($author_first, $author_last, $id);
             array_push($authors, $new_author);
         }
         return $authors;
     }
+
+
+
+
+    // function getAuthor1()
+    // {
+    //     $query = $GLOBALS['DB']->query("SELECT author_id FROM authors_books WHERE book_id = {$this->getId()};");
+    //     $author_ids = $query->fetchAll(PDO::FETCH_ASSOC);
+    //
+    //     $authors = array();
+    //     foreach ($author_ids as $id) {
+    //         $author_id = $id['author_id'];
+    //         $result = $GLOBALS['DB']->query("SELECT * FROM t_authors WHERE id = {$author_id};");
+    //         $returned_author = $result->fetchAll(PDO::FETCH_ASSOC);
+    //         $author_first = $returned_author[0]['author_first'];
+    //         $author_last = $returned_author[0]['author_last'];
+    //         $id = $returned_author[0]['id'];
+    //         $new_author = new Author($author_first, $author_last, $id);
+    //         array_push($authors, $new_author);
+    //     }
+    //     return $authors;
+    // }
+
 
     static function getAll()
     {

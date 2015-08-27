@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>Search Results</title>
+    </head>
+    <body>
+        <h1>Search Results</h1>
+        <a href="/"><h3>Home</h3></a>
+
+        {% if books is not empty%}
+            <ul>
+                {% set dumpArray = [] %}
+                {% for book in books %}
+                    {% if book not in dumpArray %}
+                        <li><a href="/books/{{ book.getId }}/edit">{{ book.getTitle }}</a> -
+                        {% set authors = book.getAuthor %}
+                        {% for author in authors %}
+                            | {{  author.getAuthorLast }} |
+                        {% endfor %}
+                        </li>
+                    {% set dumpArray = dumpArray|merge([book]) %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+    </body>
+</html>

@@ -32,16 +32,39 @@
     //allows user to post new books and view them on the same page
     $app->post("/librarian_home", function() use ($app){
         $title = $_POST['title'];
+        $author_first = $_POST['author_first_name'];
+        $author_last = $_POST['author_last_name'];
         $book = new Book($title);
         $book -> save();
+        $author = new Author($author_first, $author_last);
+        $author->save();
+        $author->addBook($book);
+
         return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll(), 'authors' => Author::getAll()));
     });
 
+    //Book page
     $app->get("/books/{id}", function($id) use ($app)
     {
         $book = Book::find($id);
         $author = $book->getAuthor();
         return $app['twig']->render('book.html.twig', array('book' => $book, 'author' => $author));
+    });
+
+    //Search for title or author
+    $app->post("/search/title", function() use ($app)
+    {
+        $title = $_POST['search_title'];
+        $books = Book::searchByTitle($title);
+
+        return $app['twig']->render('search_results.html.twig', array('books' => $books));
+    });
+
+    $app->post("/search/author", function() use ($app)
+    {
+        $author = $_POST['search_author'];
+        $books = Author::searchByAuthorLast($author);
+        return $app['twig']->render('search_results.html.twig', array('books' => $books));
     });
 
     //allows user to delete all books

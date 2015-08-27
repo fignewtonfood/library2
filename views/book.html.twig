@@ -5,14 +5,14 @@
     <body>
         <h1>Update {{ book.getTitle }}</h1>
 
-        <!-- <form id="form_id" action="/book/{{ book.getId }}/authorfirst" method="post">
+         <form id="form_id" action="/book/{{ book.getId }}/authorfirst" method="post">
             <input name="_method" type="hidden" value="patch">
 
             <label for="author_first">Author first name:</label>
             <input id="author_first" name="author_first" type="text">
 
             <button type="submit">Update author's first name</button>
-        </form> -->
+        </form> 
 
         <form id="form_id" action="/book/{{ book.getId }}/authorlast" method="post">
             <input name="_method" type="hidden" value="patch">
