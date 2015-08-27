@@ -62,10 +62,10 @@ class Book
             $author_id = $id['author_id'];
             $result = $GLOBALS['DB']->query("SELECT * FROM t_authors WHERE id = {$author_id};");
             $returned_author = $result->fetchAll(PDO::FETCH_ASSOC);
-
-            $author_name = $returned_author[0]['author_name'];
+            $author_first = $returned_author[0]['author_first'];
+            $author_last = $returned_author[0]['author_last'];
             $id = $returned_author[0]['id'];
-            $new_author = new Author($author_name, $id);
+            $new_author = new Author($author_first, $author_last, $id);
             array_push($authors, $new_author);
         }
         return $authors;
@@ -100,6 +100,25 @@ class Book
             }
         }
         return $found_book;
+    }
+
+    static function searchByTitle($search_string)
+    {
+        $clean_search_string = preg_replace('/[^A-Za-z0-9\s]/', '', $search_string);
+        $lower_clean_search_string = strtolower($clean_search_string);
+        $books = Book::getAll();
+        $matches = array();
+        foreach ($books as $book) {
+            $title = $book->getTitle();
+
+            $clean_title = preg_replace('/[^A-Za-z0-9\s]/', '', $title);
+            $lower_clean_title = strtolower($clean_title);
+            if($lower_clean_title == $lower_clean_search_string) {
+                $book = $book->getAuthor();
+                array_push($matches, $book);
+            }
+        }
+        return $matches;
     }
 }
 ?>

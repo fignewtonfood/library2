@@ -166,8 +166,9 @@
             $test_book2 = new Book($title2);
             $test_book2->save();
 
-            $author_name = "John Steinbeck";
-            $test_author = new Author($author_name);
+            $author_first = "John";
+            $author_last = "Steinbeck";
+            $test_author = new Author($author_first, $author_last);
             $test_author->save();
 
             //Act
@@ -185,12 +186,14 @@
             $test_book = new Book($title);
             $test_book->save();
 
-            $author_name = "John Steinbeck";
-            $test_author = new Author($author_name);
+            $author_first = "John";
+            $author_last = "Steinbeck";
+            $test_author = new Author($author_first, $author_last);
             $test_author->save();
 
-            $author_name2 = "J.K. Rowling";
-            $test_author2 = new Author($author_name2);
+            $author_first2 = "J.K.";
+            $author_last2 = "Rowling";
+            $test_author2 = new Author($author_first2, $author_last2);
             $test_author2->save();
 
             //Act
@@ -210,12 +213,14 @@
             $test_book = new Book($title);
             $test_book->save();
 
-            $author_name = "John Steinbeck";
-            $test_author = new Author($author_name);
+            $author_first = "John";
+            $author_last = "Steinbeck";
+            $test_author = new Author($author_first, $author_last);
             $test_author->save();
 
-            $author_name2 = "J.K. Rowling";
-            $test_author2 = new Author($author_name2);
+            $author_first2 = "J.K.";
+            $author_last2 = "Rowling";
+            $test_author2 = new Author($author_first2, $author_last2);
             $test_author2->save();
 
             //Act
@@ -223,6 +228,46 @@
 
             //Assert
             $this->assertEquals($test_book, $result);
+        }
+
+        function testSearchByTitle() {
+            //Arrange
+            $author_first = "J.K.";
+            $author_last = "Rowling";
+            $test_author = new Author($author_first, $author_last);
+            $test_author->save();
+
+            $author_first2 = "Stephen";
+            $author_last2 = "King";
+            $test_author2 = new Author($author_first2, $author_last2);
+            $test_author2->save();
+
+            $author_first3 = "John";
+            $author_last3 = "Steinbeck";
+            $test_author3 = new Author($author_first2, $author_last2);
+            $test_author3->save();
+
+            $title = "Grapes of Wrath";
+            $test_book = new Book($title);
+            $test_book->save();
+            $test_book->addAuthor($test_author3);
+
+            $title2 = "Harry Potter";
+            $test_book2 = new Book($title2);
+            $test_book2->save();
+            $test_book2->addAuthor($test_author);
+
+            $title3 = "Evil Wrath";
+            $test_book3 = new Book($title3);
+            $test_book3->save();
+            $search_string = "Wrath";
+            $test_book3->addAuthor($test_author2);
+
+            //Act
+            $result = Book::searchByTitle($search_string);
+            var_dump($result);
+            //Assert
+            $this->assertEquals([$test_book, $test_book3], $result[0]);
         }
     }
  ?>

@@ -110,5 +110,24 @@ class Author
         }
         return $found_author;
     }
+
+    static function searchByAuthorLast($search_string)
+    {
+        $clean_search_string = preg_replace('/[^A-Za-z0-9\s]/', '', $search_string);
+        $lower_clean_search_string = strtolower($clean_search_string);
+        $authors = Author::getAll();
+        $matches = array();
+        foreach ($authors as $author) {
+            $author_last = $author->getAuthorLast();
+
+            $clean_author = preg_replace('/[^A-Za-z0-9\s]/', '', $author_last);
+            $lower_clean_author = strtolower($clean_author);
+            if($lower_clean_author == $lower_clean_search_string) {
+                $book = $author->getBook();
+                array_push($matches, $book);
+            }
+        }
+        return $matches;
+    }
 }
 ?>

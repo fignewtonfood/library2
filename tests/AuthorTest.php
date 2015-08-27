@@ -260,5 +260,40 @@
             //Assert
             $this->assertEquals($test_author, $result);
         }
+
+        function testSearchByAuthorLast() {
+            //Arrange
+            $author_first = "J.K.";
+            $author_last = "Rowling";
+            $test_author = new Author($author_first, $author_last);
+            $test_author->save();
+
+            $author_first2 = "Stephen";
+            $author_last2 = "King";
+            $test_author2 = new Author($author_first2, $author_last2);
+            $test_author2->save();
+
+            $title = "Grapes of Wrath";
+            $test_book = new Book($title);
+            $test_book->save();
+            $test_author->addBook($test_book);
+
+            $title2 = "Harry Potter";
+            $test_book2 = new Book($title2);
+            $test_book2->save();
+            $test_author->addBook($test_book2);
+
+            $title3 = "Misery";
+            $test_book3 = new Book($title3);
+            $test_book3->save();
+            $test_author2->addBook($test_book3);
+            $search_string = "Rowling";
+
+            //Act
+            $result = Author::searchByAuthorLast($search_string);
+
+            //Assert
+            $this->assertEquals([$test_book, $test_book2], $result[0]);
+        }
     }
  ?>
