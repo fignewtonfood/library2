@@ -56,6 +56,7 @@ class Book
     {
         $query = $GLOBALS['DB']->query("SELECT author_id FROM authors_books WHERE book_id = {$this->getId()};");
         $author_ids = $query->fetchAll(PDO::FETCH_ASSOC);
+        // var_dump($author_ids);
 
         $authors = array();
         foreach ($author_ids as $id) {
@@ -104,18 +105,24 @@ class Book
 
     static function searchByTitle($search_string)
     {
+
         $clean_search_string = preg_replace('/[^A-Za-z0-9\s]/', '', $search_string);
         $lower_clean_search_string = strtolower($clean_search_string);
+        $exploded_lower_clean_search_string = explode(' ', $lower_clean_search_string);
         $books = Book::getAll();
         $matches = array();
-        foreach ($books as $book) {
-            $title = $book->getTitle();
-
-            $clean_title = preg_replace('/[^A-Za-z0-9\s]/', '', $title);
-            $lower_clean_title = strtolower($clean_title);
-            if($lower_clean_title == $lower_clean_search_string) {
-                $book = $book->getAuthor();
-                array_push($matches, $book);
+        foreach ($exploded_lower_clean_search_string as $word) {
+            foreach ($books as $book) {
+                $title = $book->getTitle();
+                $clean_title = preg_replace('/[^A-Za-z0-9\s]/', '', $title);
+                $lower_clean_title = strtolower($clean_title);
+                $explode_lower_clean_title = explode(' ', $lower_clean_title);
+                foreach ($explode_lower_clean_title as $title_pieces) {
+                    if($word == $title_pieces) {
+                        // $book_auth = $book->getAuthor();
+                        array_push($matches, $book);
+                    }
+                }
             }
         }
         return $matches;

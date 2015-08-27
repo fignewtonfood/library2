@@ -2,7 +2,7 @@
 class Author
 {
     private $author_first;
-    private $autthor_last;
+    private $author_last;
     private $id;
 
     function __construct($author_first, $author_last,  $id=null)
@@ -70,7 +70,6 @@ class Author
             $book_id = $id['book_id'];
             $result = $GLOBALS['DB']->query("SELECT * FROM t_books WHERE id = {$book_id};");
             $returned_book = $result->fetchAll(PDO::FETCH_ASSOC);
-
             $title = $returned_book[0]['title'];
             $id = $returned_book[0]['id'];
             $new_book = new Book($title, $id);
@@ -119,7 +118,6 @@ class Author
         $matches = array();
         foreach ($authors as $author) {
             $author_last = $author->getAuthorLast();
-
             $clean_author = preg_replace('/[^A-Za-z0-9\s]/', '', $author_last);
             $lower_clean_author = strtolower($clean_author);
             if($lower_clean_author == $lower_clean_search_string) {
