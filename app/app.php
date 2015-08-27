@@ -34,11 +34,14 @@
         $title = $_POST['title'];
         $book = new Book($title);
         $book -> save();
-        //...and the authors name. We left off here to add functions and tests to make this part work. We wanted to a book and an author with a single button.
-        // $author_name = $_POST['author_name'];
-        // $author = new Author($author_name);
-        // $author-> save();
         return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll(), 'authors' => Author::getAll()));
+    });
+
+    $app->get("/books/{id}", function($id) use ($app)
+    {
+        $book = Book::find($id);
+        $author = $book->getAuthor();
+        return $app['twig']->render('book.html.twig', array('book' => $book, 'author' => $author));
     });
 
     //allows user to delete all books

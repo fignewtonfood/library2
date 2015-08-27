@@ -155,9 +155,6 @@
         }
 
 
-///////////
-///////////////All tests pass up to this point. Recieving errors for tests below.
-//////////
         function testAddAuthor()
         {
             //Arrange
@@ -204,6 +201,28 @@
 
             //Assert
             $this->assertEquals([$test_author, $test_author2], $result);
+        }
+
+        function testFind()
+        {
+            //Arrange
+            $title = "Grapes of Wrath";
+            $test_book = new Book($title);
+            $test_book->save();
+
+            $author_name = "John Steinbeck";
+            $test_author = new Author($author_name);
+            $test_author->save();
+
+            $author_name2 = "J.K. Rowling";
+            $test_author2 = new Author($author_name2);
+            $test_author2->save();
+
+            //Act
+            $result = Book::find($test_book->getId());
+
+            //Assert
+            $this->assertEquals($test_book, $result);
         }
     }
  ?>

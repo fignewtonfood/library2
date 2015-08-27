@@ -1,23 +1,35 @@
 <?php
 class Author
 {
-    private $author_name;
+    private $author_first;
+    private $autthor_last;
     private $id;
 
-    function __construct($author_name, $id=null)
+    function __construct($author_first, $author_last,  $id=null)
     {
-        $this->author_name = $author_name;
+        $this->author_first = $author_first;
+        $this->author_last = $author_last;
         $this->id = $id;
     }
 
-    function setAuthorName($new_author_name)
+    function setAuthorFirst($new_author_first)
     {
-        $this->author_name = (string) $new_author_name;
+        $this->author_first = (string) $new_author_first;
     }
 
-    function getAuthorName()
+    function setAuthorLast($new_author_last)
     {
-        return $this->author_name;
+        $this->author_last = (string) $new_author_last;
+    }
+
+    function getAuthorFirst()
+    {
+        return $this->author_first;
+    }
+
+    function getAuthorLast()
+    {
+        return $this->author_last;
     }
 
     function getId()
@@ -27,24 +39,21 @@ class Author
 
     function save()
     {
-        $GLOBALS['DB']->exec("INSERT INTO t_authors (author_name) VALUES ('{$this->getAuthorName()}');");
+        $GLOBALS['DB']->exec("INSERT INTO t_authors (author_first, author_last) VALUES ('{$this->getAuthorFirst()}', '{$this->getAuthorLast()}');");
         $this->id = $GLOBALS['DB']->lastInsertId();
     }
 
-    function update($new_author_name)
+    function update($new_author_first, $new_author_last)
     {
-        $GLOBALS['DB']->exec("UPDATE t_authors SET author_name = '{$new_author_name}' WHERE id = {$this->getId()};");
-        $this->setAuthorName($new_author_name);
+        $GLOBALS['DB']->exec("UPDATE t_authors SET author_first = '{$new_author_first}', author_last = '{new_author_last}' WHERE id = {$this->getId()};");
+        $this->setAuthorFirst($new_author_first);
+        $this->setAuthorLast($new_author_last);
     }
 
     function deleteOne()
     {
         $GLOBALS['DB']->exec("DELETE FROM t_authors WHERE id = {$this->getId()};");
     }
-
-    ///////////
-    ///////////////All tests pass up to this point. Recieving errors for tests pertaining to functions commented-out below.
-    //////////
 
     function addBook($book)
     {
@@ -75,9 +84,10 @@ class Author
         $returned_authors = $GLOBALS['DB']->query("SELECT * FROM t_authors;");
         $authors = array();
         foreach($returned_authors as $author) {
-            $author_name = $author['author_name'];
+            $author_first = $author['author_first'];
+            $author_last = $author['author_last'];
             $id = $author['id'];
-            $new_author = new Author($author_name, $id);
+            $new_author = new Author($author_first, $author_last, $id);
             array_push($authors, $new_author);
         }
         return $authors;
@@ -88,6 +98,17 @@ class Author
         $GLOBALS['DB']->exec("DELETE FROM t_authors;");
     }
 
-
+    static function find($search_id)
+    {
+        $found_author = null;
+        $authors = Author::getAll();
+        foreach($authors as $author) {
+            $author_id = $author->getId();
+            if ($author_id == $search_id) {
+              $found_author = $author;
+            }
+        }
+        return $found_author;
+    }
 }
 ?>
