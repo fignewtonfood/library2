@@ -42,9 +42,7 @@ class Book
         $GLOBALS['DB']->exec("DELETE FROM t_books WHERE id = {$this->getId()};");
     }
 
-    ///////////
-    ///////////////All tests pass up to this point. Recieving errors for tests pertaining to functions commented-out below.
-    //////////
+
 
 
     function addAuthor($author)
@@ -73,6 +71,7 @@ class Book
 
 
     // function getAuthor1()
+
     // {
     //     $query = $GLOBALS['DB']->query("SELECT author_id FROM authors_books WHERE book_id = {$this->getId()};");
     //     $author_ids = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -82,33 +81,19 @@ class Book
     //         $author_id = $id['author_id'];
     //         $result = $GLOBALS['DB']->query("SELECT * FROM t_authors WHERE id = {$author_id};");
     //         $returned_author = $result->fetchAll(PDO::FETCH_ASSOC);
+
     //         $author_first = $returned_author[0]['author_first'];
     //         $author_last = $returned_author[0]['author_last'];
     //         $id = $returned_author[0]['id'];
     //         $new_author = new Author($author_first, $author_last, $id);
+
     //         array_push($authors, $new_author);
     //     }
     //     return $authors;
     // }
 
 
-    static function getAll()
-    {
-        $returned_books = $GLOBALS['DB']->query("SELECT * FROM t_books;");
-        $books = array();
-        foreach($returned_books as $book) {
-            $title = $book['title'];
-            $id = $book['id'];
-            $new_book = new Book($title, $id);
-            array_push($books, $new_book);
-        }
-        return $books;
-    }
 
-    static function deleteAll()
-    {
-        $GLOBALS['DB']->exec("DELETE FROM t_books;");
-    }
 
     static function find($search_id)
     {
@@ -147,5 +132,6 @@ class Book
         }
         return $matches;
     }
+
 }
 ?>

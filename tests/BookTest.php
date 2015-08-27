@@ -155,6 +155,7 @@
         }
 
 
+
         function testAddAuthor()
         {
             //Arrange
@@ -179,6 +180,7 @@
 
         }
 
+
         // function testGetAuthor()
         // {
         //     //Arrange
@@ -186,6 +188,7 @@
         //     $test_book = new Book($title);
         //     $test_book->save();
         //
+
         //     $author_first = "John";
         //     $author_last = "Steinbeck";
         //     $test_author = new Author($author_first, $author_last);
@@ -194,6 +197,7 @@
         //     $author_first2 = "J.K.";
         //     $author_last2 = "Rowling";
         //     $test_author2 = new Author($author_first2, $author_last2);
+
         //     $test_author2->save();
         //
         //     //Act
@@ -205,6 +209,7 @@
         //     //Assert
         //     $this->assertEquals([$test_author, $test_author2], $result);
         // }
+
 
         function testFind()
         {
@@ -269,5 +274,6 @@
             //Assert
             $this->assertEquals([$test_book, $test_book3], $result);
         }
+
     }
  ?>

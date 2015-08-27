@@ -22,6 +22,7 @@
             Patron::deleteAll();
         }
 
+
         function testGetAuthorFirst()
         {
             //Arrange
@@ -79,29 +80,36 @@
 
             //Assert
             $this->assertEquals("John", $result);
+
         }
 
         function testGetId()
         {
             //Arrange
+
             $author_first = "J.K.";
             $author_last = "Rowling";
             $test_author = new Author($author_first, $author_last);
             $test_author->save();
 
+
             //Act
             $result = $test_author->getId();
 
             //Assert
+
             $this->assertEquals(true, is_numeric($result));
+
         }
 
         function testSave()
         {
             //Arrange
+
             $author_first = "J.K.";
             $author_last = "Rowling";
             $test_author = new Author($author_first, $author_last);
+
             //Act
             $test_author->save();
 
@@ -113,6 +121,7 @@
         function testGetAll()
         {
             //Arrange
+
             $author_first = "J.K.";
             $author_last = "Rowling";
             $test_author = new Author($author_first, $author_last);
@@ -121,6 +130,7 @@
             $author_first2 = "John";
             $author_last2 = "Steinbeck";
             $test_author2 = new Author($author_first2, $author_last2);
+
             $test_author2->save();
 
             //Act
@@ -134,6 +144,7 @@
         function testDeleteAll()
         {
             //Arrange
+
             $author_first = "J.K.";
             $author_last = "Rowling";
             $test_author = new Author($author_first, $author_last);
@@ -142,6 +153,7 @@
             $author_first2 = "John";
             $author_last2 = "Steinbeck";
             $test_author2 = new Author($author_first2, $author_last2);
+
             $test_author2->save();
 
             //Act
@@ -155,6 +167,7 @@
         function testUpdate()
         {
             //Arrange
+
             $author_first = "J.K.";
             $author_last = "Rowling";
             $test_author = new Author($author_first, $author_last);
@@ -168,11 +181,13 @@
 
             //Assert
             $this->assertEquals(["Jack", "John"], [$test_author->getAuthorFirst(), $test_author->getAuthorLast()]);
+
         }
 
         function testDeleteOne()
         {
             //Arrange
+
             //Arrange
             $author_first = "J.K.";
             $author_last = "Rowling";
@@ -182,6 +197,7 @@
             $author_first2 = "John";
             $author_last2 = "Steinbeck";
             $test_author2 = new Author($author_first2, $author_last2);
+
             $test_author2->save();
 
             //Act
@@ -190,6 +206,7 @@
             //Assert
             $this->assertEquals([$test_author2], Author::getAll());
         }
+
 
         function testAddBook()
         {
@@ -295,5 +312,6 @@
             //Assert
             $this->assertEquals([$test_book, $test_book2], $result[0]);
         }
+
     }
  ?>

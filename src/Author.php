@@ -55,6 +55,7 @@ class Author
         $GLOBALS['DB']->exec("DELETE FROM t_authors WHERE id = {$this->getId()};");
     }
 
+
     function addBook($book)
     {
         $GLOBALS['DB']->exec("INSERT INTO authors_books (author_id, book_id) VALUES ({$this->getId()}, {$book->getId()});");
@@ -77,15 +78,18 @@ class Author
         return $books;
     }
 
+
     static function getAll()
     {
         $returned_authors = $GLOBALS['DB']->query("SELECT * FROM t_authors;");
         $authors = array();
         foreach($returned_authors as $author) {
+
             $author_first = $author['author_first'];
             $author_last = $author['author_last'];
             $id = $author['id'];
             $new_author = new Author($author_first, $author_last, $id);
+
             array_push($authors, $new_author);
         }
         return $authors;
@@ -95,6 +99,7 @@ class Author
     {
         $GLOBALS['DB']->exec("DELETE FROM t_authors;");
     }
+
 
     static function find($search_id)
     {
@@ -126,5 +131,6 @@ class Author
         }
         return $matches;
     }
+
 }
 ?>
